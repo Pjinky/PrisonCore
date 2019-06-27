@@ -1,0 +1,34 @@
+messages:
+  Buy:
+    Success: "&8&l[ &5&lBUTIK &8&l] &8&l» &a&oDu købte &2&o{amount} {item} &a&ofor &2&o{price}"
+    Failure: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oDu har ikke nok penge! Du mangler &4&o{missing}"
+  Sell:
+    Success: "&8&l[ &5&lBUTIK &8&l] &8&l» &a&oDu solgte &2&o{amount} {item} &a&ofor &2&o{price}"
+    Failure: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oDu har ikke nok af dette item! Du mangler &4&o{amount} {item}"
+  Commands:
+    Create:
+      Arg2Missing: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oArgument-2 skal være et tal"
+      Arg3Missing: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oArgument-3 skal være et tal"
+      Arg4Missing: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oArgument-4 skal være et item"
+      MissingArgs: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&o/shop create [amount] [price] [item]"
+    Help:
+      Header: "     &4&m--&c&m--&6&m--&e&m--&a&m--&2&m--&a&m--&e&m--&6&m--&c&m--&4&m--&r"
+      SubHeader: "                 &6&lHJÆLP"
+      Help: " &8&l# &6/shop hjælp &8&l| &fViser denne side."
+      Create: " &8&l# &6/shop create [amount] [price] [item] &8&l| &fGiver et skilt som laver shoppen når det placeres."
+      Footer: "     &4&m--&c&m--&6&m--&e&m--&a&m--&2&m--&a&m--&e&m--&6&m--&c&m--&4&m--&r"
+    Shop:
+      NoArguments: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oDer mangler nogen argumenter, brug &4&c\"/hjælp\" &c&ofor hjælp."
+      WrongArgument: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oArgument-1 eksistere ikke, brug \"/shop hjælp\" for hjælp"
+      ToggleCanDestroy:
+        ToggleOn: "&8&l[ &5&lBUTIK &8&l] &8&l» &a&oDu kan nu ødelægge shops."
+        ToggleAlreadyOn: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oDu kan allerede ødelægge shops."
+        ToggleOff: "&8&l[ &5&lBUTIK &8&l] &8&l» &a&oDu kan ikke længere ødelægge shops."
+        ToggleAlreadyOff: "&8&l[ &5&lBUTIK &8&l] &8&l» &c&oDu kan allerede ikke ødelægge shops."
+
+
+signs:
+  Line1: "&5&lBUTIK"
+  Line2: "&2&l{amount}" #Can only be color coded
+  Line3: "&2&l${price}"
+  Line4: "&2&l{item}" #Can only be color coded
