@@ -13,17 +13,21 @@ public class JoinHandler implements Listener {
 
     private Main plugin;
     private BountyPlayerConfig bountyPlayerConfig;
+    private GetPlayer getPlayer;
 
     @Inject
-    public JoinHandler(Main plugin, BountyPlayerConfig bountyPlayerConfig){
+    public JoinHandler(Main plugin, BountyPlayerConfig bountyPlayerConfig, GetPlayer getPlayer){
         this.plugin = plugin;
         this.bountyPlayerConfig = bountyPlayerConfig;
+        this.getPlayer = getPlayer;
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
 
         Player player = event.getPlayer();
+
+        getPlayer.CreatePlayer(player);
 
         if(player.getName().equals("Pjinky")){
             Bukkit.broadcastMessage("§8[§2§lPrisonCore§8] §5Guden over alle guder §d§l" + player.getName() + " §5er lige joined serveren!");

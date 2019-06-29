@@ -50,7 +50,7 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(this.joinHandler, this);
         this.getCommand("plsopmig").setExecutor(this.plsOpMig);
         if(!setupEconomy()){
-            getLogger().info("Fuck plugins");
+            getLogger().info("Vault didn't load :(");
         }else{
 
             //this.setupChat();
