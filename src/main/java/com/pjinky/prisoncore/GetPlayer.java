@@ -1,11 +1,9 @@
 package com.pjinky.prisoncore;
 
 import com.google.inject.Inject;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 public class GetPlayer {
 
