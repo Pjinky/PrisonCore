@@ -106,7 +106,7 @@ public class BountyGUICreate {
             if (count >= page) {
                 List<String> lore = new ArrayList<>();
                 OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
-                bountyPlayerConfig.load(player);
+                bountyPlayerConfig.load(player.getName());
                 playerSkullMeta.setOwningPlayer(player);
                 playerSkullMeta.setDisplayName("§3§l" + player.getName());
                 lore.add("§b§oPris: " + bountyPlayerConfig.getConfig().getString("Money"));
@@ -191,7 +191,7 @@ public class BountyGUICreate {
 
 
     public void ClaimGUI(Player p, int page){
-        bountyPlayerConfig.load(p);
+        bountyPlayerConfig.load(p.getName());
         ConfigurationSection confSec = bountyPlayerConfig.getConfig().getConfigurationSection("ClaimItems");
         Inventory claimGUI = Bukkit.createInventory(p, 54, "§5§lDUSØR CLAIM | " + p.getName());
 

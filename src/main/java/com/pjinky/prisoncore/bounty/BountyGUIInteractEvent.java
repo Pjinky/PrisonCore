@@ -1,6 +1,7 @@
 package com.pjinky.prisoncore.bounty;
 
 import com.google.inject.Inject;
+import com.pjinky.prisoncore.GetPlayer;
 import com.pjinky.prisoncore.Main;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.*;
@@ -22,13 +23,15 @@ public class BountyGUIInteractEvent implements Listener {
     private ConfigHandler configHandler;
     private BountyPlayerConfig bountyPlayerConfig;
     private Main plugin;
+    private GetPlayer getPlayerConvert;
 
     @Inject
-    public BountyGUIInteractEvent(BountyGUICreate bountyGUICreate, ConfigHandler configHandler, BountyPlayerConfig bountyPlayerConfig, Main plugin){
+    public BountyGUIInteractEvent(BountyGUICreate bountyGUICreate, ConfigHandler configHandler, BountyPlayerConfig bountyPlayerConfig, Main plugin, GetPlayer getPlayerConvert){
         this.bountyGUICreate = bountyGUICreate;
         this.bountyPlayerConfig = bountyPlayerConfig;
         this.configHandler = configHandler;
         this.plugin = plugin;
+        this.getPlayerConvert = getPlayerConvert;
     }
 
     private static final Set<Integer> getItemsFoo = new HashSet<>(Arrays.asList(10, 11, 12, 19, 20, 21, 28, 29, 30));
@@ -61,7 +64,7 @@ public class BountyGUIInteractEvent implements Listener {
             String invName = e.getInventory().getTitle();
             invName = invName.replace("§5§lDUSØR CREATE | ", "");
 
-            Player setPlayer = Bukkit.getPlayer(invName);
+            String setPlayer = invName;
             Player player = (Player) e.getWhoClicked();
             if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR){
                 return;
@@ -164,10 +167,10 @@ public class BountyGUIInteractEvent implements Listener {
                         }
 
                         if (anyItems != 9 || money != 0) {
-                            if (playerList.contains(setPlayer.getUniqueId().toString())) {
+                            if (playerList.contains(getPlayerConvert.getUUID(setPlayer).toString())) {
                                 //Nothing
                             } else {
-                                playerList.add(setPlayer.getUniqueId().toString());
+                                playerList.add(getPlayerConvert.getUUID(setPlayer).toString());
                                 configHandler.getConfig().set("Active", playerList);
                                 configHandler.saveConfig();
                             }
@@ -218,7 +221,7 @@ public class BountyGUIInteractEvent implements Listener {
                 Material getItem = e.getCurrentItem().getType();
                 if (player.getInventory().firstEmpty() != -1){
                     if (e.getClickedInventory().getType() != InventoryType.PLAYER) {
-                        bountyPlayerConfig.load(player);
+                        bountyPlayerConfig.load(player.getName());
                         ConfigurationSection confSec = bountyPlayerConfig.getConfig().getConfigurationSection("ClaimItems");
                         int confAmount = confSec.getInt(getItem.toString());
                         if (confAmount >= e.getCurrentItem().getAmount()) {

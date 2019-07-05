@@ -33,10 +33,10 @@ public class BountyDeathHandler implements Listener{
         List<String> activeBounty = configHandler.getConfig().getStringList("Active");
         if (attacker instanceof Player) {
             if (activeBounty.contains(player.getUniqueId().toString())) {
-                bountyPlayerConfig.load(attacker);
+                bountyPlayerConfig.load(attacker.getName());
                 ConfigurationSection confSecAttacker = bountyPlayerConfig.getConfig().getConfigurationSection("ClaimItems");
 
-                bountyPlayerConfig.load(player);
+                bountyPlayerConfig.load(player.getName());
                 int bountyMoney = bountyPlayerConfig.getConfig().getInt("Money");
                 Economy getMoney = plugin.getEconomy();
                 ConfigurationSection confSecPlayer = bountyPlayerConfig.getConfig().getConfigurationSection("Items");
@@ -44,20 +44,20 @@ public class BountyDeathHandler implements Listener{
 
                 for (String item : confSecPlayer.getKeys(false)) {
                     if (!confSecAttacker.contains(item)) {
-                        bountyPlayerConfig.load(player);
+                        bountyPlayerConfig.load(player.getName());
                         int itemAmountPlayer = bountyPlayerConfig.getConfig().getInt("Items." + item);
                         bountyPlayerConfig.getConfig().set("Items." + item, null);
 
-                        bountyPlayerConfig.load(attacker);
+                        bountyPlayerConfig.load(attacker.getName());
                         bountyPlayerConfig.getConfig().set("ClaimItems." + item, itemAmountPlayer);
                         bountyPlayerConfig.saveConfig();
                     } else if (confSecAttacker.contains(item)) {
-                        bountyPlayerConfig.load(player);
+                        bountyPlayerConfig.load(player.getName());
                         int itemAmountPlayer = bountyPlayerConfig.getConfig().getInt("Items." + item);
                         bountyPlayerConfig.getConfig().set("Items." + item, null);
                         bountyPlayerConfig.saveConfig();
 
-                        bountyPlayerConfig.load(attacker);
+                        bountyPlayerConfig.load(attacker.getName());
                         int itemAmountAttacker = bountyPlayerConfig.getConfig().getInt("ClaimItems." + item);
                         itemAmountAttacker += itemAmountPlayer;
                         bountyPlayerConfig.getConfig().set("ClaimItems." + item, itemAmountAttacker);
@@ -71,7 +71,7 @@ public class BountyDeathHandler implements Listener{
                 configHandler.saveConfig();
 
                 if (bountyMoney > 0) {
-                    bountyPlayerConfig.load(player);
+                    bountyPlayerConfig.load(player.getName());
                     bountyPlayerConfig.getConfig().set("Money", null);
                     bountyPlayerConfig.saveConfig();
                     getMoney.depositPlayer(attacker, bountyMoney);

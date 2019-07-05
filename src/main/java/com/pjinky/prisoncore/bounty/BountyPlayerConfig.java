@@ -1,6 +1,7 @@
 package com.pjinky.prisoncore.bounty;
 
 import com.google.inject.Inject;
+import com.pjinky.prisoncore.GetPlayer;
 import com.pjinky.prisoncore.Main;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,18 +15,20 @@ import java.io.IOException;
 public class BountyPlayerConfig {
 
     private Main plugin;
+    private GetPlayer getPlayer;
 
     @Inject
-    public BountyPlayerConfig(Main plugin){
+    public BountyPlayerConfig(Main plugin, GetPlayer getPlayer){
         this.plugin = plugin;
+        this.getPlayer = getPlayer;
     }
 
     private File cfile;
     private FileConfiguration config;
     private int q;
 
-    public void create(OfflinePlayer p){
-        cfile = new File(plugin.getDataFolder(), "bounty" + File.separator + p.getUniqueId() + ".yml");
+    public void create(String p){
+        cfile = new File(plugin.getDataFolder(), "bounty" + File.separator + getPlayer.getUUID(p) + ".yml");
         if(!plugin.getDataFolder().exists()){
             plugin.getDataFolder().mkdirs();
         }
@@ -47,8 +50,8 @@ public class BountyPlayerConfig {
         return cfile;
     }
 
-    public void load(OfflinePlayer p){
-        cfile = new File(plugin.getDataFolder(), "bounty" + File.separator + p.getUniqueId() + ".yml");
+    public void load(String p){
+        cfile = new File(plugin.getDataFolder(), "bounty" + File.separator + getPlayer.getUUID(p) + ".yml");
         if(!cfile.exists()){
             create(p);
         }
