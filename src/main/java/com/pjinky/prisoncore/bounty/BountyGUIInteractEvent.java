@@ -3,6 +3,7 @@ package com.pjinky.prisoncore.bounty;
 import com.google.inject.Inject;
 import com.pjinky.prisoncore.GetPlayer;
 import com.pjinky.prisoncore.Main;
+import com.pjinky.prisoncore.bounty.Listings.UpdateListings;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
@@ -24,14 +25,16 @@ public class BountyGUIInteractEvent implements Listener {
     private BountyPlayerConfig bountyPlayerConfig;
     private Main plugin;
     private GetPlayer getPlayerConvert;
+    private UpdateListings updateListings;
 
     @Inject
-    public BountyGUIInteractEvent(BountyGUICreate bountyGUICreate, ConfigHandler configHandler, BountyPlayerConfig bountyPlayerConfig, Main plugin, GetPlayer getPlayerConvert){
+    public BountyGUIInteractEvent(BountyGUICreate bountyGUICreate, ConfigHandler configHandler, BountyPlayerConfig bountyPlayerConfig, Main plugin, GetPlayer getPlayerConvert, UpdateListings updateListings){
         this.bountyGUICreate = bountyGUICreate;
         this.bountyPlayerConfig = bountyPlayerConfig;
         this.configHandler = configHandler;
         this.plugin = plugin;
         this.getPlayerConvert = getPlayerConvert;
+        this.updateListings = updateListings;
     }
 
     private static final Set<Integer> getItemsFoo = new HashSet<>(Arrays.asList(10, 11, 12, 19, 20, 21, 28, 29, 30));
@@ -126,7 +129,7 @@ public class BountyGUIInteractEvent implements Listener {
                         String moneyString = ChatColor.stripColor(moneyMeta.getDisplayName());
                         moneyString = moneyString.replace("$", "");
                         int money = Integer.parseInt(moneyString);
-
+                        int parsedMoney = Integer.parseInt(moneyString);
                         bountyPlayerConfig.load(setPlayer);
                         if (playerMoney.getBalance(player) >= money){
                             int confAmount = bountyPlayerConfig.getConfig().getInt("Money");
@@ -166,7 +169,7 @@ public class BountyGUIInteractEvent implements Listener {
                             }
                         }
 
-                        if (anyItems != 9 || money != 0) {
+                        if (anyItems != 9 || parsedMoney != 0) {
                             if (playerList.contains(getPlayerConvert.getUUID(setPlayer).toString())) {
                                 //Nothing
                             } else {
@@ -175,6 +178,7 @@ public class BountyGUIInteractEvent implements Listener {
                                 configHandler.saveConfig();
                             }
                             bountyPlayerConfig.saveConfig();
+                            updateListings.executeUpdate();
                         }
                         player.closeInventory();
                     }

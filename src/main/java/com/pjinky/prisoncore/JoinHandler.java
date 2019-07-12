@@ -28,7 +28,6 @@ public class JoinHandler implements Listener {
         Player player = event.getPlayer();
 
         getPlayer.CreatePlayer(player);
-
         if(player.getName().equals("Pjinky")){
             Bukkit.broadcastMessage("§8[§2§lPrisonCore§8] §5Guden over alle guder §d§l" + player.getName() + " §5er lige joined serveren!");
         }else{

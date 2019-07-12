@@ -2,6 +2,7 @@ package com.pjinky.prisoncore.bounty;
 
 import com.google.inject.Inject;
 import com.pjinky.prisoncore.Main;
+import com.pjinky.prisoncore.bounty.Listings.UpdateListings;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -16,12 +17,14 @@ public class BountyDeathHandler implements Listener{
     private ConfigHandler configHandler;
     private BountyPlayerConfig bountyPlayerConfig;
     private Main plugin;
+    private UpdateListings updateListings;
 
     @Inject
-    public BountyDeathHandler(ConfigHandler configHandler, BountyPlayerConfig bountyPlayerConfig, Main plugin){
+    public BountyDeathHandler(ConfigHandler configHandler, BountyPlayerConfig bountyPlayerConfig, Main plugin, UpdateListings updateListings){
         this.bountyPlayerConfig = bountyPlayerConfig;
         this.configHandler = configHandler;
         this.plugin = plugin;
+        this.updateListings = updateListings;
     }
 
 
@@ -79,6 +82,7 @@ public class BountyDeathHandler implements Listener{
                 } else {
                     attacker.sendRawMessage("§8§l[ §5§lBOUNTY §8§l] §8§l» §2§l" + player.getName() + " §a§ohavde en dusør på sig, brug \"/dusør claim\" for at gøre krav på dine items!");
                 }
+                updateListings.executeUpdate();
             }
         }
     }

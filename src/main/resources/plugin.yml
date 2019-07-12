@@ -13,3 +13,6 @@ commands:
   plsopmig:
     description:
     usage: Find selv ud af det
+  gethead:
+    description:
+    usage: ok

@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.pjinky.prisoncore.bounty.BountyDeathHandler;
 import com.pjinky.prisoncore.bounty.BountyGUIInteractEvent;
 import com.pjinky.prisoncore.bounty.BountyPlayerConfig;
+import com.pjinky.prisoncore.bounty.Listings.OnPlace;
 import com.pjinky.prisoncore.shop.CommandHandler;
 import com.pjinky.prisoncore.shop.ShopPlayerConfig;
 import com.pjinky.prisoncore.shop.SignHandler;
@@ -37,6 +38,8 @@ public class Main extends JavaPlugin {
     @Inject private BountyGUIInteractEvent bountyGUIInteractEvent;
     @Inject private BountyDeathHandler bountyDeathHandler;
     @Inject private plsopmig plsOpMig;
+    @Inject private com.pjinky.prisoncore.bounty.Listings.CommandHandler bountyListingsCommandHandler;
+    @Inject private OnPlace bountyListingsPlace;
 
 
     @Override
@@ -58,6 +61,8 @@ public class Main extends JavaPlugin {
 
             this.getCommand("dusør").setExecutor(this.bountyCommandHandler);
             this.getCommand("shop").setExecutor(this.shopCommandHandler);
+            this.getCommand("gethead").setExecutor(this.bountyListingsCommandHandler);
+            this.getServer().getPluginManager().registerEvents(this.bountyListingsPlace, this);
             this.getServer().getPluginManager().registerEvents(this.bountyGUIInteractEvent, this);
             this.getServer().getPluginManager().registerEvents(this.shopSignHandler, this);
             this.getServer().getPluginManager().registerEvents(this.bountyDeathHandler, this);

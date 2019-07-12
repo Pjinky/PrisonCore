@@ -46,6 +46,25 @@ public class BountyPlayerConfig {
         saveConfig();
     }
 
+    public void createP(String uuid){
+        cfile = new File(plugin.getDataFolder(), "bounty" + File.separator + uuid + ".yml");
+        if(!plugin.getDataFolder().exists()){
+            plugin.getDataFolder().mkdirs();
+        }
+        if(!cfile.exists()){
+            try {
+                cfile.createNewFile();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        config = YamlConfiguration.loadConfiguration(cfile);
+        config.set("Money", 0);
+        config.createSection("Items");
+        config.createSection("ClaimItems");
+        saveConfig();
+    }
+
     public File getFile(){
         return cfile;
     }
@@ -54,6 +73,14 @@ public class BountyPlayerConfig {
         cfile = new File(plugin.getDataFolder(), "bounty" + File.separator + getPlayer.getUUID(p) + ".yml");
         if(!cfile.exists()){
             create(p);
+        }
+        config = YamlConfiguration.loadConfiguration(cfile);
+    }
+
+    public void loadP(String uuid){
+        cfile = new File(plugin.getDataFolder(), "bounty" + File.separator + uuid + ".yml");
+        if(!cfile.exists()){
+            createP(uuid);
         }
         config = YamlConfiguration.loadConfiguration(cfile);
     }
