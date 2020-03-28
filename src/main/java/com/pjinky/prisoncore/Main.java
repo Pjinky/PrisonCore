@@ -40,6 +40,9 @@ public class Main extends JavaPlugin {
     @Inject private plsopmig plsOpMig;
     @Inject private com.pjinky.prisoncore.bounty.Listings.CommandHandler bountyListingsCommandHandler;
     @Inject private OnPlace bountyListingsPlace;
+    @Inject private com.pjinky.prisoncore.bande.configs.Bande bandeConf;
+    @Inject private com.pjinky.prisoncore.bande.events.Create bandeCreate;
+    @Inject private com.pjinky.prisoncore.bande.BandeCommand bandeCommand;
 
 
     @Override
@@ -62,6 +65,7 @@ public class Main extends JavaPlugin {
             this.getCommand("dusør").setExecutor(this.bountyCommandHandler);
             this.getCommand("shop").setExecutor(this.shopCommandHandler);
             this.getCommand("gethead").setExecutor(this.bountyListingsCommandHandler);
+            this.getCommand("bande").setExecutor(this.bandeCommand);
             this.getServer().getPluginManager().registerEvents(this.bountyListingsPlace, this);
             this.getServer().getPluginManager().registerEvents(this.bountyGUIInteractEvent, this);
             this.getServer().getPluginManager().registerEvents(this.shopSignHandler, this);
