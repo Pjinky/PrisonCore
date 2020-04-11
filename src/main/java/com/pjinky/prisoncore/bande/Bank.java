@@ -23,7 +23,7 @@ public class Bank {
 
     public int money;
 
-    public List<Item> getItems() {
+    /*public List<Item> getItems() {
         return items;
     }
 
@@ -31,10 +31,9 @@ public class Bank {
         this.items = items;
     }
 
-    private List<Item> items;
+    private List<Item> items;*/
 
-    public Bank(List<Item> paramItems, int moneyParam){
+    public Bank(/*List<Item> paramItems,*/ int moneyParam){
         money = moneyParam;
-        items = paramItems;
     }
 }

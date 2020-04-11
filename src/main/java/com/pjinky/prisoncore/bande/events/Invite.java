@@ -1,4 +1,4 @@
 package com.pjinky.prisoncore.bande.events;
 
-public class leave {
+public class Invite {
 }

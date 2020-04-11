@@ -2,6 +2,7 @@ package com.pjinky.prisoncore;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.pjinky.prisoncore.bande.Bande;
 import com.pjinky.prisoncore.bounty.BountyDeathHandler;
 import com.pjinky.prisoncore.bounty.BountyGUIInteractEvent;
 import com.pjinky.prisoncore.bounty.BountyPlayerConfig;
@@ -18,6 +19,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends JavaPlugin {
 
@@ -43,7 +46,7 @@ public class Main extends JavaPlugin {
     @Inject private com.pjinky.prisoncore.bande.configs.Bande bandeConf;
     @Inject private com.pjinky.prisoncore.bande.events.Create bandeCreate;
     @Inject private com.pjinky.prisoncore.bande.BandeCommand bandeCommand;
-
+    @Inject public List<Bande> bande = new ArrayList<>();
 
     @Override
     public void onEnable(){

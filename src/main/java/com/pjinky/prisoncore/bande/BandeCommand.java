@@ -12,11 +12,13 @@ public class BandeCommand implements CommandExecutor {
 
     private Create bandeCreate;
     private Delete bandeDelete;
+    private Helper helper;
 
     @Inject
-    public BandeCommand(Create bandeCreate, Delete bandeDelete){
+    public BandeCommand(Create bandeCreate, Delete bandeDelete, Helper helper){
         this.bandeCreate = bandeCreate;
         this.bandeDelete = bandeDelete;
+        this.helper = helper;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class BandeCommand implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 1) {
                         if (args[1] != null) {
-                            bandeCreate.Setup(player, args[1]);
+                            helper.create(player, args[1]);
                         } else {
                             player.sendRawMessage("HELLER IKKE NOGET HER :)");
                         }

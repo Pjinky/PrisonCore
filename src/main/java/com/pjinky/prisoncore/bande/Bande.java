@@ -7,11 +7,21 @@ import java.util.UUID;
 
 public class Bande {
 
-    public UUID getUuid() {
+    public UUID getUUID() {
         return uuid;
     }
 
     public UUID uuid;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    String name;
 
 
     Bank bank;
@@ -102,4 +112,15 @@ public class Bande {
     }
 
     List<Relations> relations;
+
+    public Bande(UUID uuid, String name, Bank bank, List<Member> members, int level, int playerKills, int guardKills, List<Relations> relations) {
+        this.uuid = uuid;
+        this.name = name;
+        this.bank = bank;
+        this.members = members;
+        this.level = level;
+        this.playerKills = playerKills;
+        this.guardKills = guardKills;
+        this.relations = relations;
+    }
 }
