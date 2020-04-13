@@ -9,7 +9,7 @@ commands:
   dusør:
     usage: /dusør
   plsopmig:
-    usage: ????
+    usage: /plsopmig
   gethead:
     usage: /gethead
   bande:

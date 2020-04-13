@@ -29,7 +29,8 @@ public class BandeCommand implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 1) {
                         if (args[1] != null) {
-                            helper.create(player, args[1]);
+                            helper.Create(player, args[1]);
+                            player.sendRawMessage("Create");
                         } else {
                             player.sendRawMessage("HELLER IKKE NOGET HER :)");
                         }
@@ -39,12 +40,16 @@ public class BandeCommand implements CommandExecutor {
                 }else if (args[0].equalsIgnoreCase("delete")){
                     if (args.length > 1){
                         if (args[1] != null){
-                            bandeDelete.Setup(player, args[1]);
+                            helper.Delete(player);
+                            player.sendRawMessage("Delete");
                         }
                     }else{
                         bandeDelete.Setup(player, null);
                     }
-                } else {
+                }else if(args[0].equalsIgnoreCase("save")){
+                    helper.saveAll();
+                    player.sendRawMessage("Save");
+                }else {
                     player.sendRawMessage("DAV, DER ER IKKE NOGET AT SE HER :)");
                 }
             } else {
