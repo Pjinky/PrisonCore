@@ -24,26 +24,37 @@ public class Helper {
 
 
     public void Create(Player player, String name){
-        boolean bCheck = true;
-        UUID uuid = UUID.randomUUID();
-        for (Bande b: plugin.bande) {
-            if (b.getUUID().equals(uuid)){
-                Create(player, name);
-            }else{
-                bCheck = false;
-                return;
+        boolean mCheck = false;
+        for (Bande b : plugin.bande) {
+            for (Member m : b.getMembers()) {
+                if (m.uuid.equals(player.getUniqueId())){
+                    player.sendRawMessage("Allerede medlem af bande");
+                    return;
+                }else{
+                    mCheck = true;
+                }
             }
         }
-        if (!bCheck){
-            Member member = new Member(Member.Rank.PRESIDENT, player.getUniqueId());
-            List<Member> members = new ArrayList<>();
-            members.add(member);
-            Bank bank = new Bank(0);
-            List<Relations> relation = new ArrayList<>();
-            Bande bande = new Bande(uuid, name, bank, members, 1, 0, 0, relation);
-            plugin.bande.add(bande);
+        if(mCheck) {
+            boolean bCheck = false;
+            UUID uuid = UUID.randomUUID();
+            for (Bande b : plugin.bande) {
+                if (b.getUUID().equals(uuid)) {
+                    Create(player, name);
+                } else {
+                    bCheck = true;
+                }
+            }
+            if (bCheck) {
+                Member member = new Member(Member.Rank.PRESIDENT, player.getUniqueId());
+                List<Member> members = new ArrayList<>();
+                members.add(member);
+                Bank bank = new Bank(0);
+                List<Relations> relation = new ArrayList<>();
+                Bande bande = new Bande(uuid, name, bank, members, 1, 0, 0, relation);
+                plugin.bande.add(bande);
+            }
         }
-
     }
 
     public void Delete(Player player){
@@ -65,7 +76,7 @@ public class Helper {
         FileConfiguration fdata = YamlConfiguration.loadConfiguration(d);
 
         if (!d.exists()){
-
+            //nothing
         }else{
             try{
                 for (Bande b : plugin.bande) {
