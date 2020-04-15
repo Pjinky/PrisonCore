@@ -1,8 +1,6 @@
 package com.pjinky.prisoncore.bande;
 
 import com.google.inject.Inject;
-import com.pjinky.prisoncore.bande.events.Create;
-import com.pjinky.prisoncore.bande.events.Delete;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,14 +8,10 @@ import org.bukkit.entity.Player;
 
 public class BandeCommand implements CommandExecutor {
 
-    private Create bandeCreate;
-    private Delete bandeDelete;
     private Helper helper;
 
     @Inject
-    public BandeCommand(Create bandeCreate, Delete bandeDelete, Helper helper){
-        this.bandeCreate = bandeCreate;
-        this.bandeDelete = bandeDelete;
+    public BandeCommand(Helper helper){
         this.helper = helper;
     }
 
@@ -29,13 +23,17 @@ public class BandeCommand implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 1) {
                         if (args[1] != null) {
-                            helper.Create(player, args[1]);
-                            player.sendRawMessage("Create");
+                            if (!helper.CheckIfPlayerIsInBande(player)) {
+                                helper.Create(player, args[1]);
+                                player.sendRawMessage("Oprettet bande");
+                            }else{
+                                player.sendRawMessage("Allerede i bande");
+                            }
                         } else {
-                            player.sendRawMessage("HELLER IKKE NOGET HER :)");
+                            player.sendRawMessage("Arg-2 er null!");
                         }
                     } else {
-                        player.sendRawMessage("HELLER IKKE NOGET HER :) :)");
+                        player.sendRawMessage("Arg-2 ikke sat!");
                     }
                 }else if (args[0].equalsIgnoreCase("delete")){
                     if (args.length > 1){
@@ -43,17 +41,15 @@ public class BandeCommand implements CommandExecutor {
                             helper.Delete(player);
                             player.sendRawMessage("Delete");
                         }
-                    }else{
-                        bandeDelete.Setup(player, null);
                     }
                 }else if(args[0].equalsIgnoreCase("save")){
                     helper.saveAll();
                     player.sendRawMessage("Save");
                 }else {
-                    player.sendRawMessage("DAV, DER ER IKKE NOGET AT SE HER :)");
+                    player.sendRawMessage("Intet valgt");
                 }
             } else {
-                player.sendRawMessage("DAV, DER ER IKKE NOGET AT SE HER :) :)");
+                player.sendRawMessage("Ingen argumenter");
             }
         }
         return true;
