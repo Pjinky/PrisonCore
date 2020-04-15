@@ -44,7 +44,11 @@ public class BandeCommand implements CommandExecutor {
                     }
                 }else if(args[0].equalsIgnoreCase("save")){
                     helper.saveAll();
-                    player.sendRawMessage("Save");
+                    player.sendRawMessage("Saved");
+                }else if (args[0].equalsIgnoreCase("bank")) {
+                    if (args.length > 3 && args[1].equalsIgnoreCase("deposit")) {
+                        helper.depositMoney(player, Integer.getInteger(args[2]));
+                    }
                 }else {
                     player.sendRawMessage("Intet valgt");
                 }

@@ -2,6 +2,7 @@ package com.pjinky.prisoncore.bande;
 
 import com.google.inject.Inject;
 import com.pjinky.prisoncore.Main;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -29,6 +30,7 @@ public class Helper {
         for (Bande b : plugin.bande) {
             if (b.getUUID().equals(uuid)) {
                 Create(player, name);
+                return;
             } else {
                 bCheck = true;
             }
@@ -90,10 +92,34 @@ public class Helper {
 
     }
 
+    public void depositMoney(Player player, int amount){
+        Economy economy = plugin.getEconomy();
+        if (economy.has(player, amount)) {
+            if (CheckIfPlayerIsInBande(player)) {
+                economy.withdrawPlayer(player, amount);
+                Bande b = GetBandeOfPlayer(player);
+                b.bank.deposit(amount);
+            }
+        }
+    }
+
+    public Bande GetBandeOfPlayer(Player player){
+        for (Bande b : plugin.bande) {
+            for (Member m : b.getMembers()) {
+                if (m.uuid.equals(player.getUniqueId())){
+                    return b;
+                }
+            }
+        }
+        return null;
+    }
+
     public boolean CheckIfPlayerIsInBande(Player player){
         for (Bande b : plugin.bande) {
             for (Member m : b.getMembers()) {
-                return m.uuid.equals(player.getUniqueId());
+                if (m.uuid.equals(player.getUniqueId())){
+                    return true;
+                }
             }
         }
         return false;

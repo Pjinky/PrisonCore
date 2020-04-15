@@ -33,7 +33,7 @@ public class Bank {
 
     private List<Item> items;*/
 
-    public Bank(/*List<Item> paramItems,*/ int moneyParam){
+    public Bank(int moneyParam){
         money = moneyParam;
     }
 }
