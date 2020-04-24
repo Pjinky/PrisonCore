@@ -12,7 +12,7 @@ public class Member {
     }
 
     public Rank rank;
-    UUID uuid;
+    public UUID uuid;
 
     public Member(Rank paramRank, UUID paramUUID){
         this.rank = paramRank;

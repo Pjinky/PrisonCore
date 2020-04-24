@@ -38,8 +38,11 @@ public class BandeCommand implements CommandExecutor {
                 }else if (args[0].equalsIgnoreCase("delete")){
                     if (args.length > 1){
                         if (args[1] != null){
-                            helper.Delete(player);
+                            player.sendRawMessage(helper.GetBandeOfPlayer(player).name);
                             player.sendRawMessage("Delete");
+                        }else {
+                            helper.DeleteBandeWithoutConfirmation(player);
+                            player.sendRawMessage("Delete own");
                         }
                     }
                 }else if(args[0].equalsIgnoreCase("save")){

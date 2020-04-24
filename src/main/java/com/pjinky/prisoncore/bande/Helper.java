@@ -3,16 +3,15 @@ package com.pjinky.prisoncore.bande;
 import com.google.inject.Inject;
 import com.pjinky.prisoncore.Main;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Helper {
 
@@ -71,7 +70,7 @@ public class Helper {
                 for (Bande b : plugin.bande) {
                     fdata.set(b.getUUID() + ".name", b.getName());
                     fdata.set(b.getUUID() + ".level", b.getLevel());
-                    fdata.set(b.getUUID() + ".bank", b.getBank());
+                    fdata.set(b.getUUID() + ".bank", b.getBank().money);
                     for (Member m : b.getMembers()) {
                         fdata.set(b.getUUID() + ".members." + m.uuid, m.rank);
                     }
@@ -104,24 +103,28 @@ public class Helper {
     }
 
     public Bande GetBandeOfPlayer(Player player){
-        for (Bande b : plugin.bande) {
-            for (Member m : b.getMembers()) {
-                if (m.uuid.equals(player.getUniqueId())){
-                    return b;
-                }
-            }
-        }
-        return null;
+        Bande playerGang = plugin.bande.stream().filter(bnd -> bnd.getMembers().stream().filter(mem -> mem.uuid.toString().equalsIgnoreCase(player.getUniqueId().toString())).count() == 1).findAny().get();
+        player.sendRawMessage(playerGang.name);
+        return playerGang;
     }
 
     public boolean CheckIfPlayerIsInBande(Player player){
-        for (Bande b : plugin.bande) {
-            for (Member m : b.getMembers()) {
-                if (m.uuid.equals(player.getUniqueId())){
-                    return true;
-                }
-            }
+
+        return plugin.bande.stream().anyMatch(bnd -> bnd.getMembers().stream().filter(mem -> mem.uuid.equals(player.getUniqueId())).count() == 1);
+    }
+
+    public Bande GetBandeFromName(String bande){
+        return plugin.bande.stream().filter(bnd -> (bnd.getName().equals(bande))).findAny().get();
+    }
+
+    /*public void DeleteBandeWithConfirmation(Player player){
+        Bande b = GetBandeOfPlayer(player);
+        if (b != null){
+            
         }
-        return false;
+    }*/
+
+    public void DeleteBandeWithoutConfirmation(Player player){
+        plugin.bande.remove(GetBandeOfPlayer(player));
     }
 }

@@ -44,8 +44,6 @@ public class Main extends JavaPlugin {
     @Inject private plsopmig plsOpMig;
     @Inject private com.pjinky.prisoncore.bounty.Listings.CommandHandler bountyListingsCommandHandler;
     @Inject private OnPlace bountyListingsPlace;
-    @Inject private com.pjinky.prisoncore.bande.configs.Bande bandeConf;
-    @Inject private com.pjinky.prisoncore.bande.events.Create bandeCreate;
     @Inject private com.pjinky.prisoncore.bande.BandeCommand bandeCommand;
     @Inject private Helper bHelper;
     public List<Bande> bande = new ArrayList<>();
