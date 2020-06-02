@@ -101,9 +101,8 @@ public class UpdateListings {
     public void executeUpdate(){
         configHandler.load();
         ConfigurationSection confSec = configHandler.getConfig().getConfigurationSection("Listings");
-
+        FileConfiguration conf = configHandler.getConfig();
         for (String s : confSec.getKeys(false)){
-            FileConfiguration conf = configHandler.getConfig();
             getPos(conf.getString("Listings." + s + ".Direction"), conf.getInt("Listings." + s + ".X"), conf.getInt("Listings." + s + ".Y"), conf.getInt("Listings." + s + ".Z"));
         }
     }

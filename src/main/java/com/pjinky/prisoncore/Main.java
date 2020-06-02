@@ -2,6 +2,8 @@ package com.pjinky.prisoncore;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.pjinky.prisoncore.bande.Bande;
+import com.pjinky.prisoncore.bande.Helper;
 import com.pjinky.prisoncore.bounty.BountyDeathHandler;
 import com.pjinky.prisoncore.bounty.BountyGUIInteractEvent;
 import com.pjinky.prisoncore.bounty.BountyPlayerConfig;
@@ -18,6 +20,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends JavaPlugin {
 
@@ -40,7 +44,9 @@ public class Main extends JavaPlugin {
     @Inject private plsopmig plsOpMig;
     @Inject private com.pjinky.prisoncore.bounty.Listings.CommandHandler bountyListingsCommandHandler;
     @Inject private OnPlace bountyListingsPlace;
-
+    @Inject private com.pjinky.prisoncore.bande.BandeCommand bandeCommand;
+    @Inject private Helper bHelper;
+    public List<Bande> bande = new ArrayList<>();
 
     @Override
     public void onEnable(){
@@ -62,6 +68,7 @@ public class Main extends JavaPlugin {
             this.getCommand("dusør").setExecutor(this.bountyCommandHandler);
             this.getCommand("shop").setExecutor(this.shopCommandHandler);
             this.getCommand("gethead").setExecutor(this.bountyListingsCommandHandler);
+            this.getCommand("bande").setExecutor(this.bandeCommand);
             this.getServer().getPluginManager().registerEvents(this.bountyListingsPlace, this);
             this.getServer().getPluginManager().registerEvents(this.bountyGUIInteractEvent, this);
             this.getServer().getPluginManager().registerEvents(this.shopSignHandler, this);
@@ -73,6 +80,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable(){
+        bHelper.saveAll();
         getLogger().info("Y u do dis...");
         getLogger().info("Shutting down... cya ;(");
     }

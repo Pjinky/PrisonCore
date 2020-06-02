@@ -5,14 +5,12 @@ main: com.pjinky.prisoncore.Main
 api-version: 1.13
 commands:
   shop:
-    description: Add description yeah
     usage: /shop
   dusør:
-    description: hi
     usage: /dusør
   plsopmig:
-    description:
-    usage: Find selv ud af det
+    usage: /plsopmig
   gethead:
-    description:
-    usage: ok
+    usage: /gethead
+  bande:
+    usage: /bande
